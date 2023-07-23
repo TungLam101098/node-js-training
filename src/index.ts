@@ -12,6 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 // Handle route for app
 route(app);
 
+// Error handling middleware
 app.use(errorMiddleware);
 
 const startApp = async () => {

@@ -18,6 +18,15 @@ class User {
       next();
     }
   };
+
+  getUsers = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const users = await UserModel.find({});
+      res.send({ data: users });
+    } catch (error) {
+      next();
+    }
+  };
 }
 
 export default new User();

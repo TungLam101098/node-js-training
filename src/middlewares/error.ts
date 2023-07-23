@@ -9,7 +9,8 @@ function errorMiddleware(
 ) {
   const status = error.status || 500;
   const message = error.message || 'Something went wrong';
-
+  
+  console.log(status, message);
   response.status(status).send({
     status,
     message,
