@@ -18,8 +18,9 @@ class User {
       }
       await UserModel.create(user);
 
-      res.send(`Register successfully ${user.username}`);
+      res.send(`Register successfully`);
     } catch (error) {
+      console.log(error)
       next();
     }
   };
