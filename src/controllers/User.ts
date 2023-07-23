@@ -1,20 +1,23 @@
-import User from "../models/User";
+import { NextFunction, Request, Response } from 'express';
+import UserModel from '../models/User';
 
-class Auth {
+class User {
   // Register user
-  register = async (req: any, res: any) => {
+  register = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const user = {
         userName: req.body.userName,
         password: req.body.password,
-      }
-      await User.create(user);
-      
+        age: req.body.age,
+        address: req.body.address,
+      };
+      await UserModel.create(user);
+
       res.send(`Register successfully ${user.userName}`);
     } catch (error) {
-      console.error(error);
+      next();
     }
   };
 }
 
-export default new Auth();
+export default new User();
