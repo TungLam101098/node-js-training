@@ -3,7 +3,7 @@ import { IsNotEmpty, IsString, IsNumber, IsOptional } from 'class-validator';
 export class UserDto {
   @IsString()
   @IsNotEmpty({ message: 'username is required' })
-  userName!: string;
+  username!: string;
 
   @IsString()
   @IsNotEmpty({ message: 'password is required' })
