@@ -1,6 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
+import bcrypt from 'bcrypt';
+
 import UserModel from '../models/User';
 import HttpException from '../exceptions/Http';
+
+const saltRounds = 10;
 
 class User {
   // Register user
@@ -16,7 +20,8 @@ class User {
       if (existUsername) {
         return next(new HttpException(401, 'User already exists'));
       }
-      await UserModel.create(user);
+      const hash = bcrypt.hashSync(user.password, saltRounds);
+      await UserModel.create({ ...user, password: hash });
 
       res.send(`Register successfully`);
     } catch (error) {
@@ -35,9 +40,9 @@ class User {
       if (!user) {
         return next(new HttpException(401, 'Account no exist'));
       }
-
-      const existUsername = await UserModel.findOne({ password: userRequest.password }).exec();
-      if (!existUsername) {
+      
+      const isValidPassword = bcrypt.compareSync(userRequest.password, user.password);
+      if (!isValidPassword) {
         return next(new HttpException(401, 'Password invalid'));
       }
 
