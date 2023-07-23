@@ -9,7 +9,7 @@ class User {
         userName: req.body.userName,
         password: req.body.password,
         age: req.body.age,
-        address: req.body.address,
+        address: req.body.address || '',
       };
       await UserModel.create(user);
 
