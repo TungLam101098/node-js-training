@@ -22,8 +22,13 @@ class Authentication {
       return invalidDataHandler(res, new HttpExeption(USER_EXIST.CODE, USER_EXIST.MESSAGE));
     }
 
-    const hashPassword = bcrypt.hashSync(req.body.password, SALT_ROUNDS);
-    const user = await saveUser({...req.body, password: hashPassword});
+    const { username, password, email } = req.body;
+    const hashPassword = bcrypt.hashSync(password, SALT_ROUNDS);
+
+    // Save user to database
+    const user = await saveUser({
+      username, password: hashPassword, email
+    });
 
     if (user) {
       const { username, email } = user;
