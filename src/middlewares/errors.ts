@@ -1,11 +1,8 @@
 import { Request, Response } from 'express';
 
 import MESSAGE from '../constants/message';
+import HttpException from '../exceptions/Http';
 
-interface HttpError {
-  status: number;
-  message: string;
-}
 
 /**
  * @param {Request}
@@ -15,16 +12,17 @@ interface HttpError {
 const invalidPathHandler = (request: Request, response: Response) => {
   const { PATH_NOT_FOUND } = MESSAGE.ERROR;
 
-  response.status(404).send({
-    code: PATH_NOT_FOUND.CODE,
-    message: PATH_NOT_FOUND.MESSAGE,
-  });
+  invalidDataHandler(response, new HttpException(404, PATH_NOT_FOUND.MESSAGE));
 };
 
-const invalidDataHandler = (response: Response, error: HttpError) => {
-  response.send({
-    code: error.status,
-    message: error.message,
+const invalidDataHandler = (response: Response, error: HttpException) => {
+  const { INTERNAL_SERVER } = MESSAGE.ERROR;
+  const status = error.status || INTERNAL_SERVER.CODE;
+  const message = error.message || INTERNAL_SERVER.MESSAGE;
+
+  response.status(error.status).send({
+    code: status,
+    message,
   });
 };
 

@@ -7,6 +7,10 @@ export default {
     INTERNAL_SERVER: {
       CODE: 500,
       MESSAGE: 'Something went wrong',
+    },
+    USER_EXIST: {
+      CODE: 409,
+      MESSAGE: 'Username is existed',
     }
   },
 };
