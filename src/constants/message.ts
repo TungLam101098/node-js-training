@@ -11,6 +11,10 @@ export default {
     USER_EXIST: {
       CODE: 409,
       MESSAGE: 'Username is existed',
+    },
+    BAD_REQUEST: {
+      CODE: 400,
+      MESSAGE: 'Bad request',
     }
   },
 };

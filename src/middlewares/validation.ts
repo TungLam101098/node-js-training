@@ -2,6 +2,9 @@ import { RequestHandler, Request, Response, NextFunction } from 'express';
 import { BaseSchema, ValiError, parse, flatten } from 'valibot';
 
 import { formatErrorMessages } from '../utils/string';
+import { invalidDataHandler } from './errors';
+import MESSAGE from '../constants/message';
+import HttpException from '../exceptions/Http';
 
 const validationMiddleware = <T>(schema: BaseSchema<T>): RequestHandler => {
   return (req: Request, res: Response, next: NextFunction) => {
@@ -10,12 +13,9 @@ const validationMiddleware = <T>(schema: BaseSchema<T>): RequestHandler => {
       parse(schema, req.body);
       next();
     } catch (error) {
-      const status = 400;
+      const { BAD_REQUEST } = MESSAGE.ERROR;
 
-      res.status(status).send({
-        status,
-        message: formatErrorMessages(flatten(error as ValiError).nested),
-      });
+      invalidDataHandler(res, new HttpException(BAD_REQUEST.CODE, formatErrorMessages(flatten(error as ValiError).nested)));
     }
   };
 };
