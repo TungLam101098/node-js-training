@@ -1,10 +1,17 @@
 import { Router } from 'express';
+import { email, minLength, object, string } from 'valibot';
+
 import user from '../controllers/User';
 import validationMiddleware from '../middlewares/validation';
 import { UserDto } from '../dto/User';
 
 const router = Router();
+const userSchema = object({
+  username: string([minLength(4)]),
+  password: string([minLength(4)]),
+  email: string([email()]),
+});
 
-router.post('/', validationMiddleware(UserDto), user.register);
+router.post('/', validationMiddleware(userSchema), user.register);
 
 export default router;
