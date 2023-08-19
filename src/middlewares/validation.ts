@@ -3,6 +3,13 @@ import { validate, ValidationError } from 'class-validator';
 import * as express from 'express';
 import HttpException from '../exceptions/Http';
 
+const invalidPathHandler = (request: express.Request, response: express.Response) => {
+  response.send({
+    code: 404,
+    message: 'not found',
+  });
+};
+
 function validationMiddleware<T>(type: any): express.RequestHandler {
   return (req, res, next) => {
     validate(plainToClass(type, req.body)).then((errors: ValidationError[]) => {
@@ -20,3 +27,5 @@ function validationMiddleware<T>(type: any): express.RequestHandler {
 }
 
 export default validationMiddleware;
+
+export { invalidPathHandler };

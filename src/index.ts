@@ -2,6 +2,7 @@ import express from 'express';
 import route from './routes';
 import connectToMongo from './config/db/mongodb';
 import errorMiddleware from './middlewares/error';
+import { invalidPathHandler } from './middlewares/validation';
 
 const PORT = 3000;
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 route(app);
 
 // Error handling middleware
+app.use(invalidPathHandler);
 app.use(errorMiddleware);
 
 const startApp = async () => {
