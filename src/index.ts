@@ -3,7 +3,7 @@ import express from 'express';
 import route from './routes';
 
 import DatabaseManager from './config/db';
-import { invalidPathHandler } from './middlewares/error';
+import { invalidPathHandler } from './middlewares/errors';
 
 const PORT = process.env.PORT || 3000;
 const app = express();
