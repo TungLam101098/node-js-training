@@ -3,7 +3,6 @@ import { email, minLength, object, string } from 'valibot';
 
 import user from '../controllers/User';
 import validationMiddleware from '../middlewares/validation';
-import { UserDto } from '../dto/User';
 
 const router = Router();
 const userSchema = object({
