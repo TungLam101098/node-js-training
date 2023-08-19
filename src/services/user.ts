@@ -11,7 +11,7 @@ const saveUser = async (userData: IUser) => {
 
 const findUser = async (username: string) => {
   try {
-    return !!await await user.findOne({ username }).exec();
+    return await await user.findOne({ username }).exec();
   } catch (error) {
     console.error(error);
   }

@@ -17,6 +17,11 @@ const User = new Schema(
   { timestamps: true }
 );
 
+const userLoginSchema = object({
+  username: string([minLength(minLengthSchema.username)]),
+  password: string([minLength(minLengthSchema.password)]),
+});
+
 const userSchema = object({
   username: string([minLength(minLengthSchema.username)]),
   password: string([minLength(minLengthSchema.password)]),
@@ -25,4 +30,4 @@ const userSchema = object({
 
 export default mongoose.model('User', User);
 
-export { userSchema };
+export { userSchema, userLoginSchema };

@@ -15,6 +15,14 @@ export default {
     BAD_REQUEST: {
       CODE: 400,
       MESSAGE: 'Bad request',
-    }
+    },
+    USER_NOT_FOUND: {
+      CODE: 404,
+      MESSAGE: 'Username does not exist',
+    },
+    INVALID_PASSWORD: {
+      CODE: 401,
+      MESSAGE: 'Incorrect password',
+    },
   },
 };
