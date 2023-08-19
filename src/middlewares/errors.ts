@@ -2,6 +2,11 @@ import { Request, Response } from 'express';
 
 import MESSAGE from '../constants/message';
 
+interface HttpError {
+  status: number;
+  message: string;
+}
+
 /**
  * @param {Request}
  * @param {Response}
@@ -16,4 +21,11 @@ const invalidPathHandler = (request: Request, response: Response) => {
   });
 };
 
-export { invalidPathHandler };
+const invalidDataHandler = (response: Response, error: HttpError) => {
+  response.send({
+    code: error.status,
+    message: error.message,
+  });
+};
+
+export { invalidPathHandler, invalidDataHandler };
